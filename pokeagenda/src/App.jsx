@@ -8,7 +8,9 @@ import Feedback from './components/Feedback.jsx';
 import { fetchPokemonList } from './services/pokeapi.js';
 
 function App() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(() => {
+    return localStorage.getItem('pokeagenda-query') || '';
+  });
   const [pokemons, setPokemons] = useState([]);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
@@ -29,6 +31,10 @@ function App() {
 
     loadPokemons();
   }, []);
+
+  useEffect(() => {
+  localStorage.setItem('pokeagenda-query', query);
+}, [query]);
 
   const filteredPokemons = useMemo(() => {
     const trimmedQuery = query.trim().toLowerCase();

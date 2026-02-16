@@ -163,3 +163,66 @@
     width: 100%;
   }
 }
+
+[data-theme="dark"] {
+  --primary: #ff6b6b;
+  --secondary: #ffd93d;
+  --text: #e0e0e0;
+  --surface: #2d2d2d;
+  --background-start: #1a1a2e;
+  --background-end: #16213e;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --primary: #ef5350;
+  --secondary: #fdd835;
+  --text: #212121;
+  --surface: #ffffff;
+  --background-start: #ffebee;
+  --background-end: #fffde7;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--background-start), var(--background-end));
+  padding: 32px;
+  color: var(--text);
+  transition: background 0.3s ease;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 100;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.card {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.stats div {
+  background: var(--background-start);
+}
+
+.search-form input {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+}

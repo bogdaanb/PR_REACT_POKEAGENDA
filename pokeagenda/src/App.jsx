@@ -6,6 +6,7 @@ import SearchForm from './components/SearchForm.jsx';
 import PokemonGrid from './components/PokemonGrid.jsx';
 import Feedback from './components/Feedback.jsx';
 import { fetchPokemonList } from './services/pokeapi.js';
+import ThemeToggle from './components/ThemeToggle.jsx';
 
 function App() {
   const [query, setQuery] = useState(() => {
@@ -14,6 +15,20 @@ function App() {
   const [pokemons, setPokemons] = useState([]);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('pokeagenda-theme') || 'light';
+  });
+
+  // useEffect para aplicar el tema al document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('pokeagenda-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  };
+
 
   useEffect(() => {
     async function loadPokemons() {
@@ -33,8 +48,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-  localStorage.setItem('pokeagenda-query', query);
-}, [query]);
+    localStorage.setItem('pokeagenda-query', query);
+  }, [query]);
 
   const filteredPokemons = useMemo(() => {
     const trimmedQuery = query.trim().toLowerCase();
@@ -52,6 +67,7 @@ function App() {
 
   return (
     <div className="app">
+      <ThemeToggle theme={theme} onToggle={toggleTheme} />
       <Layout>
         <Header />
         <SearchForm
